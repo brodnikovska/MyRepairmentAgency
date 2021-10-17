@@ -39,6 +39,15 @@ public class User {
     @Column(name = "balance", nullable = false)
     private double balance;
 
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = RoleType.ROLE_USER;
+        this.balance = 0.0;
+    }
+
     public String getName() {
         return this.firstName + " " + this.getLastName();
     }

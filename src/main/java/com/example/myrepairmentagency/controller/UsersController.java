@@ -1,12 +1,11 @@
 package com.example.myrepairmentagency.controller;
 
+import com.example.myrepairmentagency.entity.User;
 import com.example.myrepairmentagency.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
@@ -31,10 +30,24 @@ public class UsersController {
        return "users/show.html";
     }
 
+    @GetMapping("/new")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "users/new";
+    }
 
-//    @GetMapping("")
-//    public String showBalance(Model model){
-//        model.addAttribute("balance", usersRepository.findByEmail().);
-//        return "users/home-page";
+//    @PostMapping()
+//    public String create(@ModelAttribute("user") User user) {
+//        usersRepository.save(user);
+//        return "redirect:/users";
 //    }
+
+    @PostMapping()
+    public String create(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
+                         @RequestParam("email") String email, @RequestParam("password") String password) {
+        User user = new User(firstName, lastName, email, password);
+        usersRepository.save(user);
+        return "redirect:/users";
+    }
+
 }
