@@ -13,12 +13,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "order",
-        uniqueConstraints={@UniqueConstraint(columnNames={"order_id"})})
+        uniqueConstraints={@UniqueConstraint(columnNames={"id"})})
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "order_id", nullable = false)
-    private Long order_id;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     @Column(name = "user_id", nullable = false)
     private Long user_id;

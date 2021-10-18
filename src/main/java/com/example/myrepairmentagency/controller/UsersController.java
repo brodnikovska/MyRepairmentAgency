@@ -5,7 +5,10 @@ import com.example.myrepairmentagency.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -36,18 +39,24 @@ public class UsersController {
         return "users/new";
     }
 
-//    @PostMapping()
-//    public String create(@ModelAttribute("user") User user) {
-//        usersRepository.save(user);
-//        return "redirect:/users";
-//    }
-
     @PostMapping()
-    public String create(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
-                         @RequestParam("email") String email, @RequestParam("password") String password) {
-        User user = new User(firstName, lastName, email, password);
-        usersRepository.save(user);
-        return "redirect:/users";
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "users/new";
+        } else {
+            usersRepository.save(user);
+            return "redirect:/users";
+        }
     }
+
+//    @PostMapping()
+//    public String create(@RequestParam("firstName") @Valid String firstName,
+//                         @RequestParam("lastName") @Valid String lastName,
+//                         @RequestParam("email") @Valid String email,
+//                         @RequestParam("password") String password) {
+//            User user = new User(firstName, lastName, email, password);
+//            usersRepository.save(user);
+//            return "redirect:/users";
+//    }
 
 }
