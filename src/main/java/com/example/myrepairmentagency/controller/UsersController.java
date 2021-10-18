@@ -45,7 +45,7 @@ public class UsersController {
             return "users/new";
         } else {
             usersRepository.save(user);
-            return "redirect:/users";
+            return "index.html";
         }
     }
 
