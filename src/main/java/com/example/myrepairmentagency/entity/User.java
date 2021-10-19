@@ -53,7 +53,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.role = RoleType.ROLE_USER;
+        this.role = RoleType.USER;
         this.balance = 0.0;
     }
 }
