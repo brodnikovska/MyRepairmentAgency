@@ -21,17 +21,17 @@ public class UsersController {
         this.usersRepository = usersRepository;
     }
 
-    @GetMapping()
-    public String index(Model model) {
-       model.addAttribute("users", usersRepository.findAll());
-       return "users/all.html";
-    }
-
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") Long id, Model model) {
-       model.addAttribute("user", usersRepository.findById(id));
-       return "users/show.html";
-    }
+//    @GetMapping()
+//    public String index(Model model) {
+//       model.addAttribute("users", usersRepository.findAll());
+//       return "users/all.html";
+//    }
+//
+//    @GetMapping("/{id}")
+//    public String show(@PathVariable("id") Long id, Model model) {
+//       model.addAttribute("user", usersRepository.findById(id));
+//       return "users/show.html";
+//    }
 
     @GetMapping("/new")
     public String newUser(Model model) {
