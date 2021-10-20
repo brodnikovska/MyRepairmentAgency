@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin-panel")
 public class AdminController {
 
     private final UsersRepository usersRepository;
@@ -19,10 +19,10 @@ public class AdminController {
         this.usersRepository = usersRepository;
     }
 
-//    @GetMapping("")
-//    public String adminPage(){
-//        return "admin/home-page.html";
-//    }
+    @GetMapping("")
+    public String adminPage(){
+        return "admin/home-page.html";
+    }
 
     @GetMapping("/userslist")
     public String index(Model model) {

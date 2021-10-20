@@ -23,7 +23,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.GET,"/admin/**").hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
+                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
 //                .antMatchers(HttpMethod.GET,"/newuser/**").hasRole(RoleType.USER.name())
 //                .antMatchers(HttpMethod.POST,"/newuser/**").hasRole(RoleType.USER.name())
 

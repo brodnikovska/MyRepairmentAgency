@@ -1,5 +1,6 @@
 package com.example.myrepairmentagency.controller;
 
+import com.example.myrepairmentagency.entity.RoleType;
 import com.example.myrepairmentagency.entity.User;
 import com.example.myrepairmentagency.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,6 @@ public class UsersController {
         this.usersRepository = usersRepository;
     }
 
-//    @GetMapping()
-//    public String index(Model model) {
-//       model.addAttribute("users", usersRepository.findAll());
-//       return "users/all.html";
-//    }
-//
-//    @GetMapping("/{id}")
-//    public String show(@PathVariable("id") Long id, Model model) {
-//       model.addAttribute("user", usersRepository.findById(id));
-//       return "users/show.html";
-//    }
-
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
@@ -50,13 +39,17 @@ public class UsersController {
     }
 
 //    @PostMapping()
-//    public String create(@RequestParam("firstName") @Valid String firstName,
-//                         @RequestParam("lastName") @Valid String lastName,
-//                         @RequestParam("email") @Valid String email,
+//    public String create(@RequestParam("firstName") @Valid String firstName, BindingResult bindingResultName,
+//                         @RequestParam("lastName") @Valid String lastName, BindingResult bindingResultSurname,
+//                         @RequestParam("email") @Valid String email, BindingResult bindingResultEmail,
 //                         @RequestParam("password") String password) {
-//            User user = new User(firstName, lastName, email, password);
+//        User user = new User(firstName, lastName, email, password);
+//        if (bindingResultName.hasErrors() || bindingResultSurname.hasErrors() || bindingResultEmail.hasErrors()) {
+//            return "/users/new";
+//        } else {
 //            usersRepository.save(user);
-//            return "redirect:/users";
+//            return "index.html";
+//        }
 //    }
 
 }
