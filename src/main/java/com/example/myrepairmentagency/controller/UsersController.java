@@ -38,18 +38,4 @@ public class UsersController {
         }
     }
 
-//    @PostMapping()
-//    public String create(@RequestParam("firstName") @Valid String firstName, BindingResult bindingResultName,
-//                         @RequestParam("lastName") @Valid String lastName, BindingResult bindingResultSurname,
-//                         @RequestParam("email") @Valid String email, BindingResult bindingResultEmail,
-//                         @RequestParam("password") String password) {
-//        User user = new User(firstName, lastName, email, password);
-//        if (bindingResultName.hasErrors() || bindingResultSurname.hasErrors() || bindingResultEmail.hasErrors()) {
-//            return "/users/new";
-//        } else {
-//            usersRepository.save(user);
-//            return "index.html";
-//        }
-//    }
-
 }
