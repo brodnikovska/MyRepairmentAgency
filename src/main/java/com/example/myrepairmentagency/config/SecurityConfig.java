@@ -22,11 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
-//                .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
-//                .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
-//                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
-//                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
+                .antMatchers("/").permitAll()
+                .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
+                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
 //                .antMatchers(HttpMethod.GET,"/js/*").hasRole(RoleType.USER.name())
 
 //                .antMatchers(HttpMethod.GET,"/newuser/**").hasRole(RoleType.USER.name())
