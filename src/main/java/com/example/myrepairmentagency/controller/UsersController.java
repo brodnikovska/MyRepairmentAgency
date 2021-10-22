@@ -1,9 +1,13 @@
 package com.example.myrepairmentagency.controller;
 
+import com.example.myrepairmentagency.dto.UserDTO;
 import com.example.myrepairmentagency.entity.RoleType;
 import com.example.myrepairmentagency.entity.User;
 import com.example.myrepairmentagency.repository.UsersRepository;
+import com.example.myrepairmentagency.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,15 +15,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UsersRepository usersRepository;
+    private final UserService userService;
 
     @Autowired
-    public UsersController(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public UsersController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/new")
@@ -33,9 +38,37 @@ public class UsersController {
         if (bindingResult.hasErrors()) {
             return "users/new";
         } else {
-            usersRepository.save(user);
+            userService.saveNewUser(user);
             return "index.html";
         }
     }
+
+    @GetMapping("/login")
+    public String newUser() {
+        return "users/login";
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "/login")
+    public void loginFormController(UserDTO user){
+        log.info("{}",userService.findByUserLogin(user));
+        log.info("{}", user);
+    }
+
+//    @GetMapping("/login")
+//    public String login(Model model) {
+//        model.addAttribute("user", new User());
+//        return "users/login-page";
+//    }
+//
+//    @PostMapping("/login-page")
+//    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return "users/login";
+//        } else {
+//            usersRepository.save(user);
+//            return "index.html";
+//        }
+//    }
 
 }

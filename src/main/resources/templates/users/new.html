@@ -3,26 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>New user</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
 </head>
 <body>
-<h1>Register new user</h1>
-<form th:method="POST" th:action="@{/users}" th:object="${user}">
-    <label for="firstName">Name: </label>
-    <input type="text" th:field="*{firstName}" id="firstName"/>
-    <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</div>
+    <div class="col-md-12 col-md-offset-2">
+        <h1>Register new user</h1>
+    </div>
+    <form th:method="POST" th:action="@{/users}" th:object="${user}" style="margin-top: 30px">
+        <div class="form-group">
+        <div class="form-group">
+        <label for="firstName">Name: </label>
+            <input type="text" th:field="*{firstName}" id="firstName"/>
+                <div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error</div>
     <br/>
-    <label for="lastName">Surname: </label>
-    <input type="text" th:field="*{lastName}" id="lastName"/>
-    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</div>
+        <label for="lastName">Surname: </label>
+            <input type="text" th:field="*{lastName}" id="lastName"/>
+                    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</div>
     <br/>
-    <label for="email">Email: </label>
-    <input type="text" th:field="*{email}" id="email"/>
-    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</div>
+        <label for="email">Email: </label>
+            <input type="text" th:field="*{email}" id="email"/>
+                <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</div>
     <br/>
-    <label for="password">Password: </label>
-    <input type="text" th:field="*{password}" id="password"/>
+        <label for="password">Password: </label>
+            <input type="text" th:field="*{password}" id="password"/>
     <br/>
-    <input type="submit" value="Submit">
-</form>
+        </div>
+        <input type="submit" value="Submit">
+        </div>
+    </form>
+<script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.example.myrepairmentagency.controller;
 
+import com.example.myrepairmentagency.dto.UserDTO;
 import com.example.myrepairmentagency.repository.UsersRepository;
+import com.example.myrepairmentagency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin-panel")
 public class AdminController {
 
-    private final UsersRepository usersRepository;
+    private UsersRepository usersRepository;
 
     @Autowired
     public AdminController(UsersRepository usersRepository) {
@@ -27,7 +29,7 @@ public class AdminController {
     @GetMapping("/userslist")
     public String index(Model model) {
         model.addAttribute("users", usersRepository.findAll());
-        return "users/all.html";
+        return "users/all";
     }
 
     @GetMapping("/userslist/{id}")
