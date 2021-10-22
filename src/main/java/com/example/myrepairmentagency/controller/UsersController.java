@@ -1,10 +1,8 @@
 package com.example.myrepairmentagency.controller;
 
 import com.example.myrepairmentagency.dto.UserDTO;
-import com.example.myrepairmentagency.entity.RoleType;
 import com.example.myrepairmentagency.entity.User;
-import com.example.myrepairmentagency.repository.UsersRepository;
-import com.example.myrepairmentagency.service.UserService;
+import com.example.myrepairmentagency.service.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UsersController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public UsersController(UserService userService) {
+    public UsersController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -38,22 +36,22 @@ public class UsersController {
         if (bindingResult.hasErrors()) {
             return "users/new";
         } else {
-            userService.saveNewUser(user);
+            userService.createUser(user);
             return "index.html";
         }
     }
 
-    @GetMapping("/login")
-    public String newUser() {
-        return "users/login";
-    }
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/login")
-    public void loginFormController(UserDTO user){
-        log.info("{}",userService.findByUserLogin(user));
-        log.info("{}", user);
-    }
+//    @GetMapping("/login")
+//    public String newUser() {
+//        return "users/login";
+//    }
+//
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping(value = "/login")
+//    public void loginFormController(UserDTO user){
+//        log.info("{}",userService.findUserByEmail(user));
+//        log.info("{}", user);
+//    }
 
 //    @GetMapping("/login")
 //    public String login(Model model) {

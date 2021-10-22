@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/master")
 public class MasterController {
 
-    @GetMapping("/")
+    @GetMapping()
     public String adminPage(){
         return "Hello master";
     }
