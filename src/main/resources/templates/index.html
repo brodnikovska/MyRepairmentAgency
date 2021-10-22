@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Welcome page</title>
+    <link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css" />
+    <script type="text/javascript" src="public/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Welcome to "MyRepair" repairment agency</h1>
-<p>Login as</p>
-<a href="users">Admin</a>
-<a href="users/new">User</a>
-<a>Master</a>
+    <h1><p text-align="center">Welcome to "MyRepair" repairment agency</p></h1>
+    <p>Login as
+        <a th:href="@{/admin-panel/userslist}">Admin</a>
+        <a th:href="@{/users/login}">Registered user</a>
+        <a>Master</a>
+    </p>
+    <p>Or
+        <a th:href="@{/users/new}">Register</a>
+    </p>
 </body>
 </html>
