@@ -23,33 +23,19 @@ public class UserService{
         this.usersRepository = usersRepository;
     }
 
-    public UsersDTO getAllUsers() {
+    public List<User> getAllUsers() {
         //TODO checking for an empty user list
-        return new UsersDTO(usersRepository.findAll());
+        return usersRepository.findAll();
     }
-
-//    public List<User> getAllUsers(){
-//        return userService.findAllByOrderByIdAsc();
-//    }
-
-//    @SneakyThrows
-//    public Optional<User> findUserById(long id, UserDTO userDTO) {
-//        //TODO checking for an empty user list
-//        if(id == userDTO.getId()) {
-//            return usersRepository.findById(userDTO.getId());
-//        } else {
-//            throw new Exception("User not found");
-//        }
-//    }
 
     public Optional<User> findByUserLogin(UserDTO userDTO) {
         //TODO check for user availability. password check
         return usersRepository.findByEmail(userDTO.getEmail());
     }
 
-    public Optional<User> putMoney(UserDTO userDTO) {
+    public Optional<User> findByUserId(Long id) {
         //TODO check for user availability. password check
-        return usersRepository.findByEmail(userDTO.getEmail());
+        return usersRepository.findById(id);
     }
 
     public void saveNewUser(User user) {
