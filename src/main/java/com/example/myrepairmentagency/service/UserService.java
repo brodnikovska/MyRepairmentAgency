@@ -1,12 +1,9 @@
 package com.example.myrepairmentagency.service;
 
 import com.example.myrepairmentagency.dto.UserDTO;
-import com.example.myrepairmentagency.dto.UsersDTO;
 import com.example.myrepairmentagency.entity.User;
 import com.example.myrepairmentagency.repository.UsersRepository;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
