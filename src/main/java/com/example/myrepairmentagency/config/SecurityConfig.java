@@ -23,22 +23,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().loginPage("/login").permitAll()
+//                .and()
+//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
                 .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
                 .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
-//                .antMatchers(HttpMethod.GET,"/js/*").hasRole(RoleType.USER.name())
-
-//                .antMatchers(HttpMethod.GET,"/newuser/**").hasRole(RoleType.USER.name())
-//                .antMatchers(HttpMethod.POST,"/newuser/**").hasRole(RoleType.USER.name())
-
-//                .antMatchers(HttpMethod.GET, "/api/**").hasAnyRole(RoleType.ROLE_ADMIN.name(), RoleType.ROLE_USER.name())
-//                .antMatchers(HttpMethod.POST, "/api/**").hasAnyRole(RoleType.ROLE_ADMIN.name())
-//                .antMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole(RoleType.ROLE_ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .httpBasic()
+        ;
 
     }
 
@@ -51,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .password(passwordEncoder().encode("admin"))
                         .roles(RoleType.ADMIN.toString())
                         .build(),
+
                 User.builder()
                         .username("user")
                         .password(passwordEncoder().encode("user"))
@@ -63,4 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
+
+//    @Autowired
+//    public void configureGlobal(AuthentificationManageBuilder auth) throws Exception {
+//        auth.userDetailsService
+//    }
 }

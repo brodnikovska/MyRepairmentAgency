@@ -43,6 +43,17 @@ public class UsersController {
         }
     }
 
+    @GetMapping("/balance")
+    public String updateBalance(Model model) {
+        model.addAttribute("user", new User());
+        return "users/balance";
+    }
+
+//    @PatchMapping("/{id}")
+//    public String updateBalance(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+//        userService.
+//    }
+
     @GetMapping("/login")
     public String newUser() {
         return "users/login";

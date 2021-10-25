@@ -29,4 +29,8 @@ public class Order {
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private RepairType type;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 }

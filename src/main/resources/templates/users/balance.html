@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New user</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+</head>
+<body>
+<div class="col-md-12 col-md-offset-2">
+    <h1>User's cabinet</h1>
+</div>
+<form th:method="PATCH" th:action="@{/users}" th:object="${user}" style="margin-top: 30px">
+    <div class="form-group">
+        <div class="form-group">
+            <label for="balance">Balance: </label>
+            <input type="text" th:field="*{balance}" id="balance"/>
+            <br/>
+        </div>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
