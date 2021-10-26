@@ -12,7 +12,7 @@
 <div class="col-md-12 col-md-offset-2">
     <h1>User's cabinet</h1>
 </div>
-<form th:method="PATCH" th:action="@{/users}" th:object="${user}" style="margin-top: 30px">
+<form th:method="POST" th:action="@{/users/balance}" th:object="${user}" style="margin-top: 30px">
     <div class="form-group">
         <div class="form-group">
             <label for="balance">Balance: </label>

@@ -39,20 +39,27 @@ public class UsersController {
             return "users/new";
         } else {
             userService.saveNewUser(user);
-            return "index.html";
+            return "users/balance";
         }
     }
 
+//    @GetMapping("/balance")
+//    public String updateBalance(Model model, @RequestParam("balance") double balance, User user) {
+//        model.addAttribute("balance", user.getBalance());
+//        return "users/balance";
+//    }
+
     @GetMapping("/balance")
-    public String updateBalance(Model model) {
-        model.addAttribute("user", new User());
+    public String updateBalance(Model model, User user) {
+        model.addAttribute("balance", user.getBalance());
         return "users/balance";
     }
 
-//    @PatchMapping("/{id}")
-//    public String updateBalance(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-//        userService.
-//    }
+    @PostMapping("/users/balance")
+    public String updateBalance(User user) {
+        userService.putMoney(user, user.getBalance());
+        return "index.html";
+    }
 
     @GetMapping("/login")
     public String newUser() {

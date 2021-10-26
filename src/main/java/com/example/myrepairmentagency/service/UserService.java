@@ -6,6 +6,12 @@ import com.example.myrepairmentagency.entity.User;
 import com.example.myrepairmentagency.repository.UsersRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -15,7 +21,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserService{
+public class UserService {
     private final UsersRepository usersRepository;
 
     @Autowired
@@ -64,4 +70,16 @@ public class UserService{
         usersRepository.save(user);
     }
 
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return User.builder()
+//                .username("user")
+//                .password("user")
+//                .role(RoleType.USER)
+//                .build();
+//    }
+
+    //protected PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder(12);
+//    }
 }
