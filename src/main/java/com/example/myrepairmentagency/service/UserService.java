@@ -4,6 +4,7 @@ import com.example.myrepairmentagency.dto.UserDTO;
 import com.example.myrepairmentagency.entity.RoleType;
 import com.example.myrepairmentagency.entity.User;
 import com.example.myrepairmentagency.repository.UsersRepository;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +23,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UsersRepository usersRepository;
 
     @Autowired
@@ -42,6 +44,11 @@ public class UserService {
     public Optional<User> findByUserId(Long id) {
         //TODO check for user availability. password check
         return usersRepository.findById(id);
+    }
+
+    public Optional<User> findByUsername(UserDTO userDTO) {
+        //TODO check for user availability. password check
+        return usersRepository.findByUsername(userDTO.getUsername());
     }
 
     public void saveNewUser(User user) {
@@ -70,16 +77,23 @@ public class UserService {
         usersRepository.save(user);
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return User.builder()
-//                .username("user")
-//                .password("user")
-//                .role(RoleType.USER)
-//                .build();
-//    }
+    @Override
+    public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-    //protected PasswordEncoder passwordEncoder() {
+        usersRepository.findByUsername(username);
+        return User.builder()
+                .username(username)
+                .password(encoder.encode("password"))
+                .role(RoleType.USER)
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .enabled(true)
+                .build();
+    }
+
+//    protected PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder(12);
 //    }
 }

@@ -1,6 +1,7 @@
 package com.example.myrepairmentagency.repository;
 
 import com.example.myrepairmentagency.entity.User;
+import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,9 +12,13 @@ import java.util.Optional;
 
 @Repository
 public interface UsersRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
+    //@Query("SELECT user FROM User user WHERE user.email = ?1")
+    Optional<User> findByEmail(@NonNull String email);
 
     Optional<User> findById(Long id);
+
+    @Query("SELECT user FROM User user WHERE user.username = ?1")
+    Optional<User> findByUsername(@NonNull String username);
 
     @Query("UPDATE User user SET user.balance = ?1 where user.email = ?2")
     @Modifying

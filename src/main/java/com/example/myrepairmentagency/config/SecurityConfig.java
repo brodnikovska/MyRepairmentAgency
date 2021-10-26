@@ -24,53 +24,53 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                //.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().loginPage("/login").permitAll()
-//                .and()
-//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
-                .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
-                .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
-                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
-                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
-                .httpBasic()
+                .formLogin().permitAll()
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
+//                .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+//                .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+//                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
+//                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .httpBasic()
         ;
     }
 
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.builder()
-                        .username("admin")
-                        .password(passwordEncoder().encode("admin"))
-                        .roles(RoleType.ADMIN.toString())
-                        .build(),
-
-                User.builder()
-                        .username("user")
-                        .password(passwordEncoder().encode("user"))
-                        .roles(RoleType.USER.name())
-                        .build()
-        );
-    }
+//    @Bean
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        return new InMemoryUserDetailsManager(
+//                User.builder()
+//                        .username("admin")
+//                        .password(passwordEncoder().encode("admin"))
+//                        .roles(RoleType.ADMIN.toString())
+//                        .build(),
 //
-//    @Autowired
-//    private UserService userService;
-//
-    @Bean
-    protected PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userService);
+//                User.builder()
+//                        .username("user")
+//                        .password(passwordEncoder().encode("user"))
+//                        .roles(RoleType.USER.name())
+//                        .build()
+//        );
 //    }
+//
+//    @Bean
+//    protected PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder(12);
+//    }
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService);
+    }
 }
