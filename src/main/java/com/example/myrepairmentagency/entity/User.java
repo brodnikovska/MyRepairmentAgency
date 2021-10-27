@@ -1,19 +1,15 @@
 package com.example.myrepairmentagency.entity;
 
+
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,8 +19,8 @@ import java.util.List;
 @Builder
 @ToString
 @Entity
-@Table(name="user",
-        uniqueConstraints={@UniqueConstraint(columnNames={"email"})})
+@Table(name = "user",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -52,7 +48,7 @@ public class User implements UserDetails {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name="password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "role")
@@ -91,4 +87,30 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+//@Data
+//@Entity
+//@Table(name = "users")
+//public class User implements UserDetails {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(unique = true, nullable = false)
+//    private Long id;
+//    private String username;
+//    private String firstName;
+//    private String lastName;
+//    private String email;
+//    private String password;
+//    @Enumerated(EnumType.STRING)
+//    private RoleType role;
+//    private BigDecimal balance;
+//    @Override
+//    public Collection<RoleType> getAuthorities() {
+//        return Arrays.asList(RoleType.values());
+//    }
+//    private boolean accountNonExpired;
+//    private boolean accountNonLocked;
+//    private boolean credentialsNonExpired;
+//    private boolean enabled;
+//}
 }
