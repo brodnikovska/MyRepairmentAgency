@@ -43,11 +43,14 @@ public class UsersController {
         }
     }
 
-//    @GetMapping("/balance")
-//    public String updateBalance(Model model, @RequestParam("balance") double balance, User user) {
-//        model.addAttribute("balance", user.getBalance());
-//        return "users/balance";
-//    }
+    @GetMapping("/login")
+    public String getLogin(@RequestParam(value = "error", required = false) String error,
+                           @RequestParam(value = "logout", required = false) String logout,
+                           Model model) {
+        model.addAttribute("error", error != null);
+        model.addAttribute("logout", error != null);
+        return "users/login-page";
+    }
 
     @GetMapping("/balance")
     public String updateBalance(Model model, User user) {
@@ -61,17 +64,23 @@ public class UsersController {
         return "index.html";
     }
 
-    @GetMapping("/login")
-    public String newUser() {
-        return "users/login";
-    }
+//    @GetMapping("/balance")
+//    public String updateBalance(Model model, @RequestParam("balance") double balance, User user) {
+//        model.addAttribute("balance", user.getBalance());
+//        return "users/balance";
+//    }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/login")
-    public void loginFormController(UserDTO user){
-        log.info("{}",userService.findByUserLogin(user));
-        log.info("{}", user);
-    }
+//    @GetMapping("/login")
+//    public String login() {
+//        return "users/login";
+//    }
+//
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping(value = "/login")
+//    public void loginFormController(UserDTO user){
+//        log.info("{}",userService.findByUserLogin(user));
+//        log.info("{}", user);
+//    }
 
 //    @GetMapping("/login")
 //    public String login(Model model) {
