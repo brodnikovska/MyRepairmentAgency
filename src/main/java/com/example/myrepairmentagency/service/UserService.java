@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -37,14 +36,14 @@ public class UserService implements UserDetailsService {
         return usersRepository.findAll();
     }
 
-    public Optional<User> findByUserId(Long id) {
-        //TODO check for user availability. password check
-        return usersRepository.findById(id);
-    }
-
     public Optional<User> findByUserLogin(UserDTO userDTO) {
         //TODO check for user availability. password check
         return usersRepository.findByEmail(userDTO.getEmail());
+    }
+
+    public Optional<User> findByUserId(Long id) {
+        //TODO check for user availability. password check
+        return usersRepository.findById(id);
     }
 
     public Optional<User> findByUsername(UserDTO userDTO) {
@@ -78,29 +77,20 @@ public class UserService implements UserDetailsService {
         usersRepository.save(user);
     }
 
-    @PostConstruct
-    public void init() {
-        usersRepository.findByUsername("user").ifPresent(user -> {
-            user.setPassword(new BCryptPasswordEncoder().encode("password"));
-            usersRepository.save(user);
-        });
-    }
-
     @Override
     public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
-        return usersRepository.findByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("user " + username + " was not found!"));
-//        return User.builder()
-//                .username(username)
-//                .password(encoder.encode("password"))
-//                .role(RoleType.USER)
-//                .accountNonExpired(true)
-//                .accountNonLocked(true)
-//                .credentialsNonExpired(true)
-//                .enabled(true)
-//                .build();
+        usersRepository.findByUsername(username);
+        return User.builder()
+                .username(username)
+                .password(encoder.encode("password"))
+                .role(RoleType.USER)
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .enabled(true)
+                .build();
     }
 
 //    protected PasswordEncoder passwordEncoder() {
