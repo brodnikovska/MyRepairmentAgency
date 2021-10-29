@@ -1,87 +1,60 @@
 package com.example.myrepairmentagency.entity;
 
+import com.example.myrepairmentagency.annotation.ValidPassword;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-@Builder
-@ToString
 @Entity
-@Table(name="user",
-        uniqueConstraints={@UniqueConstraint(columnNames={"email"})})
+@Table(name="userslist",
+        uniqueConstraints={@UniqueConstraint(columnNames={"email", "username"})})
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @Column(unique = true, nullable = false)
     private Long id;
 
     @NotEmpty(message = "Username should not be empty")
     @Size(min = 2, max = 30, message = "Username should be between 2 and 30 characters")
-    @Column(name = "username", nullable = false)
+    @Column(unique = true)
     private String username;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
-    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @NotEmpty(message = "Surname should not be empty")
     @Size(min = 2, max = 30, message = "Surname should be between 2 and 30 characters")
-    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @NotEmpty(message = "Email should not be empty")
     @Email
-    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name="password", nullable = false)
+    @NotEmpty(message = "Password should not be empty")
+    @ValidPassword
     private String password;
 
-    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
-    @Column(name = "balance", nullable = false)
-    private double balance;
+    private BigDecimal balance;
 
     @Override
     public Collection<RoleType> getAuthorities() {
         return Arrays.asList(RoleType.values());
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
 }

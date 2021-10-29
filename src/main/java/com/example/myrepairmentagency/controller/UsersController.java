@@ -55,15 +55,15 @@ public class UsersController {
         return "users/balance";
     }
 
-    @PostMapping("/users/balance")
-    public String updateBalance(User user) {
-        userService.putMoney(user, user.getBalance());
-        return "index.html";
-    }
+//    @PostMapping("/users/balance")
+//    public String updateBalance(User user) {
+//        userService.putMoney(user, user.getBalance());
+//        return "index.html";
+//    }
 
     @GetMapping("/login")
     public String newUser() {
-        return "users/login";
+        return "users/login-page";
     }
 
     @ResponseStatus(HttpStatus.CREATED)
