@@ -21,21 +21,40 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Bean
+    protected PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("user").password(passwordEncoder().encode("user")).roles("USER")
+                .and()
+                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/users/new").permitAll()
+                .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
 //                .anyRequest().authenticated()
 //                .and()
 //                .formLogin().loginPage("/login").permitAll()
 //                .and()
 //                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
-                .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
-                .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
-                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
-                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
+
+                //.antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
+
+//                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
+//                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -43,31 +62,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 
-    @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.builder()
-                        .username("admin")
-                        .password(passwordEncoder().encode("admin"))
-                        .roles(RoleType.ADMIN.toString())
-                        .build(),
-
-                User.builder()
-                        .username("user")
-                        .password(passwordEncoder().encode("user"))
-                        .roles(RoleType.USER.name())
-                        .build()
-        );
-    }
+//    @Bean
+//    @Override
+//    protected UserDetailsService userDetailsService() {
+//        return new InMemoryUserDetailsManager(
+//                User.builder()
+//                        .username("admin")
+//                        .password(passwordEncoder().encode("admin"))
+//                        .roles(RoleType.ADMIN.toString())
+//                        .build(),
+//
+//                User.builder()
+//                        .username("user")
+//                        .password(passwordEncoder().encode("user"))
+//                        .roles(RoleType.USER.name())
+//                        .build()
+//        );
+//    }
 //
 //    @Autowired
 //    private UserService userService;
 //
-    @Bean
-    protected PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
+
 
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
