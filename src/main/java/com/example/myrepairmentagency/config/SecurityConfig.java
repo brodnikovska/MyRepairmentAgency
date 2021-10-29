@@ -41,26 +41,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/users/new").permitAll()
+//                .antMatchers("/users/new").permitAll()
+//                .antMatchers("/users/login/**").permitAll()
                 .antMatchers(HttpMethod.GET,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.POST,"/admin-panel/**").hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
                 .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
 //                .anyRequest().authenticated()
 //                .and()
 //                .formLogin().loginPage("/login").permitAll()
 //                .and()
 //                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
-
-                //.antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
-
-//                .antMatchers(HttpMethod.GET,"/users/**").hasRole(RoleType.USER.name())
-//                .antMatchers(HttpMethod.POST,"/users/**").hasRole(RoleType.USER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic()
         ;
     }
+
 
 //    @Bean
 //    @Override

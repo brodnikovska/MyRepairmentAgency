@@ -62,16 +62,27 @@ public class UsersController {
 //    }
 
     @GetMapping("/login")
-    public String newUser() {
+    public String getLogin() {
         return "users/login-page";
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/login")
-    public void loginFormController(UserDTO user){
-        log.info("{}",userService.findByUserLogin(user));
-        log.info("{}", user);
+    @PostMapping("/login/{id}")
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "logout", required = false) String logout,
+                        @PathVariable("id") Long id,
+                           Model model) {
+        model.addAttribute("error", error != null);
+        model.addAttribute("logout", logout != null);
+        model.addAttribute("user", userService.findByUserId(id));
+        return "users/balance";
     }
+
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @PostMapping(value = "/login")
+//    public void loginFormController(UserDTO user){
+//        log.info("{}",userService.findByUserLogin(user));
+//        log.info("{}", user);
+//    }
 
 //    @GetMapping("/login")
 //    public String login(Model model) {
