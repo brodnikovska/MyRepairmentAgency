@@ -58,33 +58,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
         ;
     }
-
-
-//    @Bean
-//    @Override
-//    protected UserDetailsService userDetailsService() {
-//        return new InMemoryUserDetailsManager(
-//                User.builder()
-//                        .username("admin")
-//                        .password(passwordEncoder().encode("admin"))
-//                        .roles(RoleType.ADMIN.toString())
-//                        .build(),
-//
-//                User.builder()
-//                        .username("user")
-//                        .password(passwordEncoder().encode("user"))
-//                        .roles(RoleType.USER.name())
-//                        .build()
-//        );
-//    }
-//
-//    @Autowired
-//    private UserService userService;
-//
-
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(userService);
-//    }
 }

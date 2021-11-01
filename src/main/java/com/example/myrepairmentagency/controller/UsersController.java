@@ -61,21 +61,21 @@ public class UsersController {
 //        return "index.html";
 //    }
 
-    @GetMapping("/login")
-    public String getLogin() {
-        return "users/login-page";
-    }
-
-    @PostMapping("/login/{id}")
-    public String login(@RequestParam(value = "error", required = false) String error,
-                        @RequestParam(value = "logout", required = false) String logout,
-                        @PathVariable("id") Long id,
-                           Model model) {
-        model.addAttribute("error", error != null);
-        model.addAttribute("logout", logout != null);
-        model.addAttribute("user", userService.findByUserId(id));
-        return "users/balance";
-    }
+//    @GetMapping("/login")
+//    public String getLogin() {
+//        return "users/login-page";
+//    }
+//
+//    @PostMapping("/login/{id}")
+//    public String login(@RequestParam(value = "error", required = false) String error,
+//                        @RequestParam(value = "logout", required = false) String logout,
+//                        @PathVariable("id") Long id,
+//                           Model model) {
+//        model.addAttribute("error", error != null);
+//        model.addAttribute("logout", logout != null);
+//        model.addAttribute("user", userService.findByUserId(id));
+//        return "users/balance";
+//    }
 
 //    @ResponseStatus(HttpStatus.CREATED)
 //    @PostMapping(value = "/login")

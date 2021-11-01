@@ -7,14 +7,7 @@ import com.example.myrepairmentagency.repository.UsersRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.passay.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -52,12 +45,8 @@ public class UserService {
         //TODO inform the user about the replay email
         // TODO exception to endpoint
         try {
-            user.setRole(RoleType.USER);
+            user.setRoles(RoleType.USER.name());
             user.setBalance(BigDecimal.ZERO);
-            user.setAccountNonExpired(true);
-            user.setAccountNonLocked(true);
-            user.setCredentialsNonExpired(true);
-            user.setEnabled(true);
             usersRepository.save(user);
         } catch (Exception ex){
             log.info("{Почтовый адрес уже существует}");

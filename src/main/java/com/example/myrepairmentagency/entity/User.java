@@ -2,6 +2,8 @@ package com.example.myrepairmentagency.entity;
 
 import com.example.myrepairmentagency.annotation.ValidPassword;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -11,14 +13,15 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name="userslist",
         uniqueConstraints={@UniqueConstraint(columnNames={"email", "username"})})
-public class User implements UserDetails {
+public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true, nullable = false)
     private Long id;
 
@@ -43,18 +46,6 @@ public class User implements UserDetails {
     @ValidPassword
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
-
+    private String roles;
     private BigDecimal balance;
-
-    @Override
-    public Collection<RoleType> getAuthorities() {
-        return Arrays.asList(RoleType.values());
-    }
-
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
 }
