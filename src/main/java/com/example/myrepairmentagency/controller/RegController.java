@@ -36,7 +36,7 @@ public class RegController {
             return "users/new";
         } else {
             userService.saveNewUser(user);
-            return "index.html";
+            return "registration/success";
         }
     }
 
