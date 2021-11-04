@@ -61,10 +61,10 @@ public class UsersController {
 //        return "index.html";
 //    }
 
-//    @GetMapping("/login")
-//    public String getLogin() {
-//        return "users/login-page";
-//    }
+    @GetMapping("/login")
+    public String getLogin() {
+        return "users/login";
+    }
 //
 //    @PostMapping("/login/{id}")
 //    public String login(@RequestParam(value = "error", required = false) String error,
@@ -77,12 +77,14 @@ public class UsersController {
 //        return "users/balance";
 //    }
 
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PostMapping(value = "/login")
-//    public void loginFormController(UserDTO user){
-//        log.info("{}",userService.findByUserLogin(user));
-//        log.info("{}", user);
-//    }
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "/login")
+    public String loginFormController(UserDTO user){
+        userService.findByUserLogin(user);
+        log.info("{}",userService.findByUserLogin(user));
+        log.info("{}", user);
+        return "index";
+    }
 
 //    @GetMapping("/login")
 //    public String login(Model model) {

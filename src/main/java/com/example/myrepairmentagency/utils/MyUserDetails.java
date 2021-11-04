@@ -1,6 +1,5 @@
 package com.example.myrepairmentagency.utils;
 
-import com.example.myrepairmentagency.entity.RoleType;
 import com.example.myrepairmentagency.entity.User;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -19,13 +17,13 @@ public class MyUserDetails implements UserDetails {
     private String username;
     private String password;
     private boolean active;
-    private List<GrantedAuthority> authorirites;
+    private List<GrantedAuthority> authorities;
 
     @Autowired
     public MyUserDetails(User user) {
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.authorirites = Arrays.stream(user.getRoles().split(","))
+        this.authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
@@ -33,7 +31,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorirites;
+        return authorities;
     }
 
     @Override
