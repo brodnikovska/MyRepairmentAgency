@@ -27,43 +27,15 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        return "users/new";
-    }
-
-    @PostMapping()
-    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "users/new";
-        } else {
-            userService.saveNewUser(user);
-            return "users/balance";
-        }
-    }
-
-//    @GetMapping("/balance")
-//    public String updateBalance(Model model, @RequestParam("balance") double balance, User user) {
-//        model.addAttribute("balance", user.getBalance());
-//        return "users/balance";
-//    }
-
     @GetMapping("/balance")
     public String updateBalance(Model model, User user) {
         model.addAttribute("balance", user.getBalance());
         return "users/balance";
     }
 
-//    @PostMapping("/users/balance")
-//    public String updateBalance(User user) {
-//        userService.putMoney(user, user.getBalance());
-//        return "index.html";
-//    }
-
-    @GetMapping("/login")
-    public String getLogin() {
-        return "users/login";
+    @GetMapping("/cabinet")
+    public String getToTheCabinet() {
+        return "users/cabinet";
     }
 //
 //    @PostMapping("/login/{id}")

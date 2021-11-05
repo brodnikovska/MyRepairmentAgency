@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.passay.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -40,6 +41,11 @@ public class UserService {
         return usersRepository.findById(id);
     }
 
+    public Optional<User> findByUsername(UserDTO userDTO) {
+        //TODO check for user availability. password check
+        return usersRepository.findByUsername(userDTO.getUsername());
+    }
+
     @Transactional
     public void saveNewUser(User user) {
         //TODO inform the user about the replay email
@@ -53,20 +59,20 @@ public class UserService {
         }
     }
 
-//    @ModelAttribute("id")
-//    public void updateBalance(User user, double sum) {
-//        user.setBalance(user.getBalance() + sum);
-//        usersRepository.save(user);
-//    }
+    @ModelAttribute("id")
+    public void updateBalance(User user, BigDecimal sum) {
+        user.setBalance(user.getBalance().add(sum));
+        usersRepository.save(user);
+    }
 
-//    @Transactional
-//    @ModelAttribute("id")
-//    public void putMoney(User user, double sum) {
-//        double currentBalance = user.getBalance();
-//        currentBalance += sum;
-//        user.setBalance(currentBalance);
-//        usersRepository.save(user);
-//    }
+    @Transactional
+    @ModelAttribute("id")
+    public void putMoney(User user, BigDecimal sum) {
+        BigDecimal currentBalance = user.getBalance();
+        currentBalance = currentBalance.add(sum);
+        user.setBalance(currentBalance);
+        usersRepository.save(user);
+    }
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

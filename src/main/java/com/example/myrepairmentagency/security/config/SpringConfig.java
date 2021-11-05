@@ -1,4 +1,4 @@
-package com.example.myrepairmentagency.config;
+package com.example.myrepairmentagency.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

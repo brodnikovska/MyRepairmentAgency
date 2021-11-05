@@ -1,6 +1,9 @@
-package com.example.myrepairmentagency.config;
+package com.example.myrepairmentagency.security.config;
 
 import com.example.myrepairmentagency.entity.RoleType;
+import com.example.myrepairmentagency.security.CustomAccessDeniedHandler;
+import com.example.myrepairmentagency.security.CustomAuthenticationFailureHandler;
+import com.example.myrepairmentagency.security.CustomLogoutSuccessHandler;
 import com.example.myrepairmentagency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -32,25 +38,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
-//        @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth)
-//            throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user").password(passwordEncoder().encode("user")).roles("USER")
-//                .and()
-//                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/registration/**", "/js/**", "/css/**").permitAll()
+                .antMatchers("/", "/registration/**", "/js/**", "/css/**", "/favicon.ico").permitAll()
                 .antMatchers("/admin-panel/**").hasAuthority(RoleType.ADMIN.name())
                 .antMatchers("/users/**").hasAnyAuthority(RoleType.ADMIN.name(), RoleType.USER.name())
+                .antMatchers("/login/**").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").permitAll();
+                .and()
+                .formLogin()
+                .loginPage("/login")
+//                .loginProcessingUrl("/perform_login")
+                .and()
+                .logout()
+                .logoutUrl("/perform_logout")
+                .deleteCookies("JSESSIONID")
+                //.permitAll()
+        ;
     }
 
     @Bean

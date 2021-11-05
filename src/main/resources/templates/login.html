@@ -9,78 +9,21 @@
     <title>Login</title>
 </head>
 <body>
-<!--<div class="col-md-6 col-md-offset-3">-->
-<!--    <form name="f" th:action="@{/login}" method="post" class="form-inline">-->
-<!--        <fieldset>-->
-<!--            <legend>Please login</legend>-->
-<!--            <div th:if="${param.error}" class="alert alert-error">-->
-<!--                Invalid username and password.-->
-<!--            </div>-->
-<!--            <div th:if="${param.logout}" class="alert alert-success">-->
-<!--                You have been logged out.-->
-<!--            </div>-->
-<!--        </fieldset>-->
-<!--        <div class="form-group">-->
-<!--            <label for="username">Username</label>-->
-<!--            <input type="text" id="username" name="username"/>-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <div class="form-group">-->
-<!--            <label for="password">Password</label>-->
-<!--            <input type="password" id="password" name="password"/>-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <div class="form-actions">-->
-<!--            <button type="submit" class="btn btn-primary">Log in</button>-->
-<!--        </div>-->
-<!--    </form>-->
-<!--</div>-->
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default" style="margin-top:45px">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please login</h3>
-                </div>
-                <div class="panel-body">
-                    <form name="f" th:action="@{/login}" method="post" style="margin-top: 30px">
-                        <fieldset>
-                            <div class="panel-heading">
-<!--                            <legend>Please login</legend>-->
-                                <div th:if="${param.error}" class="alert alert-danger" role="alert">
-                                    Invalid username and password.
-                                </div>
-                                <div th:if="${param.logout}" class="alert alert-primary" role="alert">
-                                    You have been logged out.
-                                </div>
-<!--                            <div th:if="${param.error}" class="alert alert-error" style="color: red">-->
-<!--                                Invalid username and password.-->
-<!--                            </div>-->
-<!--                            <div th:if="${param.logout}" class="alert alert-success">-->
-<!--                                You have been logged out.-->
-<!--                            </div>-->
-                            </div>
-                        </fieldset>
-
-                        <div class="mb-3">
-                            <label for="username">Username</label>
-                                        <input type="text" id="username" name="username"/>
-                            <br/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password">Password</label>
-                                        <input type="password" id="password" name="password"/>
-                            <br/>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Log in</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+<h1>Login</h1>
+<form name='f' action="/login" method='POST'>
+    <table>
+        <tr>
+            <td>User:</td>
+            <td><input type='text' name='username' value=''></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type='password' name='password' /></td>
+        </tr>
+        <tr>
+            <td><input name="submit" type="submit" value="Log in"/></td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>
